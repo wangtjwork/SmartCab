@@ -83,12 +83,7 @@ class LearningAgent(Agent):
         ## TO DO ##
         ###########
         # Calculate the maximum Q-value of all actions for a given state
-        maxQ = -float("inf")
-        
-        Qvalue = self.Q[state]
-        for action in Qvalue:
-            if Qvalue[action] > maxQ:
-                maxQ = Qvalue[action]
+        maxQ = max(self.Q[state].values())
 
         return maxQ 
 
@@ -102,10 +97,8 @@ class LearningAgent(Agent):
         # When learning, check if the 'state' is not in the Q-table
         # If it is not, create a new dictionary for that state
         #   Then, for each action available, set the initial Q-value to 0.0
-        if state not in self.Q:
-            self.Q[state] = {}
-            for action in self.valid_actions:
-                self.Q[state][action] = 0.0
+        if self.learning and (state not in self.Q):
+            self.Q[state] = {action: 0.0 for action in self.valid_actions}
         
         return
 
@@ -131,11 +124,9 @@ class LearningAgent(Agent):
             if random.random() <= self.epsilon:
                 action = random.choice(self.valid_actions)
             else:
-                maxQ = -float("inf")
-                for key in self.Q[state]:
-                    if self.Q[state][key] > maxQ:
-                        maxQ = self.Q[state][key]
-                        action = key
+                maxQ = self.get_maxQ(state)
+                best_actions = [action for action in self.valid_actions if self.Q[state][action] == maxQ]
+                action = random.choice(best_actions)
 
         return action
 

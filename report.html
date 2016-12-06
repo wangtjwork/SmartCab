@@ -13077,9 +13077,10 @@ REREC/1/kBy8wLLnc18AAAAASUVORK5CYII=
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><strong>Answer:</strong></p>
 <p>I believe that all three are most relevant for learning both safety and efficiency.</p>
-<p>So inputs are much more related to safety, because from the inputs of sensor, the smartcab could know what operation or operations are safe for the next move.</p>
+<p>So inputs are much more related to safety, because from the inputs of sensor, the smartcab could know what operation or operations are safe for the next move. But for one key in input, ['right'], it does not really matter where that car is going, given that it is following traffic rules. There's no state I can think of that having a car to the right would affect the moves.</p>
 <p>Waypoint is more related to efficiency. Because we have to know the destination and which direction the Smartcab should drive to.</p>
-<p>Deadline is not so important because we penalize the car for not getting there on time, and to ensure both safety and efficiency, it's better not to drive when desparate.</p>
+<p>Deadline is not so important because we penalize the car for not getting there on time, and to ensure both safety and efficiency, it's better not to drive when desparate. Also, there's so many different values for deadline, so if involved, there will be much more different states.</p>
+<p>In the way I organize the space now, I would have 96 different states in total, given 3 different directions for waypoint, 2 different lights, 4 different options for oncoming, 4 different options for left. So I believe it's complicated enough.</p>
 
 </div>
 </div>
@@ -16295,8 +16296,8 @@ iIiIiIiU0P8HiAyrH9SmbmQAAAAASUVORK5CYII=
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><strong>Answer:</strong>
-I think one thing about the environment is that it is always changing. So if we peek into the future action to help us decide where to turn, when we arrive there, the state is likely to have changed. Like, the lights could turn from green to red, and the car have to wait for some time, affecting its ability to get to destination on time.</p>
-<p>The Smartcab is not blindly following traffic rules, it has to go to a destination. Therefore what might look good from one crossing may be going a long way from the destination, thus having worse effects.</p>
+I think one thing about the environment is that it is always changing. So if we peek into the future action to help us decide where to turn, when we arrive there, the state is likely to have changed. Like, the lights could turn from green to red, and the car have to wait for some time, affecting its ability to get to destination on time. Also, the smartcab is not receiving global information from the environment, it's focusing on the states of its current intersection.</p>
+<p>The Smartcab is not blindly following traffic rules, it has to go to a destination. Therefore what might look good from one crossing may be going a long way from the destination, thus having worse effects. Also, I didn't see extra reward for reaching the destination, the program just stopped there, so the cab in theory is not rewarded to get there on time. So there isn't anything for the Smartcab to propagate back.except the reward for obeying traffic rules and following the planner.</p>
 
 </div>
 </div>
